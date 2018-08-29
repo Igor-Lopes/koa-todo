@@ -1,0 +1,25 @@
+{
+  "name": "koa-todo",
+  "version": "1.0.0",
+  "description": "A Simple REST API to try out Koa",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Igor-Lopes/koa-todo.git"
+  },
+  "author": "igor-lopes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Igor-Lopes/koa-todo/issues"
+  },
+  "homepage": "https://github.com/Igor-Lopes/koa-todo#readme",
+  "dependencies": {
+    "app-module-path": "^2.2.0",
+    "consign": "^0.1.6",
+    "koa": "^2.5.2",
+    "koa-router": "^7.4.0"
+  }
+}
