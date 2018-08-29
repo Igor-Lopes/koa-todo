@@ -21,6 +21,7 @@ module.exports = () => {
   consign({
     cwd: "app"
   })
+    .then("controllers")
     .then("routes")
     .into(app);
 
