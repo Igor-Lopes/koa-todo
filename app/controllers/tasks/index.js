@@ -16,7 +16,11 @@ module.exports = app => {
 
       ctx.status = 201;
       ctx.body = result;
-    } catch (ex) {}
+    } catch (ex) {
+      ctx.status = 500;
+      ctx.body = "Internal Error Occurred";
+      ctx.app.emit("error", ex, ctx);
+    }
   };
 
   controller.getOne = async (ctx, next) => {

@@ -18,6 +18,12 @@ module.exports = () => {
   /* Use Body Parser */
   app.use(bodyParser());
 
+  /* Errors handler */
+  app.on("error", (err, ctx) => {
+    console.log("Errors details:");
+    console.log(err.stack || err);
+  });
+
   /* Setup Koa Router */
   const router = new koaRouter();
 
