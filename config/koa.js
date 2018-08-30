@@ -4,12 +4,19 @@ const koa = require("koa");
 /* Koa Router */
 const koaRouter = require("koa-router");
 
+/* Koa Body Parser */
+
+const bodyParser = require("koa-bodyparser");
+
 /* Consign */
 const consign = require("consign");
 
 module.exports = () => {
   /* Setup Koa App */
   const app = new koa();
+
+  /* Use Body Parser */
+  app.use(bodyParser());
 
   /* Setup Koa Router */
   const router = new koaRouter();
@@ -21,14 +28,10 @@ module.exports = () => {
   consign({
     cwd: "app"
   })
+    .then("models")
     .then("controllers")
     .then("routes")
     .into(app);
-
-  app.use((ctx, next) => {
-    ctx.test = "teste";
-    next();
-  });
 
   app.use(router.routes()).use(router.allowedMethods());
 
