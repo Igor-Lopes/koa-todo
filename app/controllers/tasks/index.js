@@ -3,8 +3,16 @@ module.exports = app => {
   const Task = app.models.task;
 
   controller.getAll = async (ctx, next) => {
-    let result = await Task.find().lean();
-    ctx.body = result;
+    try {
+      let result = await Task.find().lean();
+      ctx.body = result;
+    } catch (ex) {
+      ctx.status = 500;
+      ctx.body = {
+        error: "Internal Error"
+      };
+      ctx.app.emit("error", ex, ctx);
+    }
   };
 
   controller.create = async (ctx, next) => {
@@ -18,7 +26,9 @@ module.exports = app => {
       ctx.body = result;
     } catch (ex) {
       ctx.status = 500;
-      ctx.body = "Internal Error Occurred";
+      ctx.body = {
+        error: "Internal Error"
+      };
       ctx.app.emit("error", ex, ctx);
     }
   };
@@ -32,7 +42,13 @@ module.exports = app => {
       } else {
         ctx.status = 404;
       }
-    } catch (ex) {}
+    } catch (ex) {
+      ctx.status = 500;
+      ctx.body = {
+        error: "Internal Error"
+      };
+      ctx.app.emit("error", ex, ctx);
+    }
   };
 
   controller.update = async (ctx, next) => {
@@ -53,7 +69,13 @@ module.exports = app => {
       } else {
         ctx.status = 404;
       }
-    } catch (ex) {}
+    } catch (ex) {
+      ctx.status = 500;
+      ctx.body = {
+        error: "Internal Error"
+      };
+      ctx.app.emit("error", ex, ctx);
+    }
   };
 
   controller.delete = async (ctx, next) => {
@@ -61,7 +83,13 @@ module.exports = app => {
       let result = await Task.findByIdAndDelete(ctx.params.id);
 
       ctx.status = 204;
-    } catch (ex) {}
+    } catch (ex) {
+      ctx.status = 500;
+      ctx.body = {
+        error: "Internal Error"
+      };
+      ctx.app.emit("error", ex, ctx);
+    }
   };
 
   return controller;
